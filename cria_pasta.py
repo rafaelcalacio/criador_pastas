@@ -1,38 +1,37 @@
 import os
 
-# Solicita ao usuário fornecer os nomes das pastas e cria as subpastas como um array
-imovel = str(input(f'Digite o nome do imóvel: \n'))
-comodo = (input(f'Quais comodos o {imovel} possui? (Coloque separando por espaços!) \n'))
-ambiente = comodo.split()
-quantidade_comodo = len(ambiente)+1
+## Solicita ao usuário para inserir o nome da pasta
+pasta = input(f'Digite o nome da pasta \n')
 
-def criar_pastas(imovel, fotos_ambientes):
-    # Verifica se o diretório já existe
-    if not os.path.exists(imovel):
-        os.makedirs(imovel)
-        print(f'Diretório {imovel} criado com sucesso.')
+nome = input('Digite o nome dos cômodos separando por espaço: \n')
+pasta2 = nome.split()
+y=len(pasta2)+1
+## pasta2 = ['SALA', 'VARANDA', 'COZINHA', 'BANHEIRO', 'QUARTO1', 'QUARTO2', 'SUITE', 'LAVABO', 'AREA_DE_SERVICO']
+
+def cria_pasta(diretorio):
+    if not os.path.exists(diretorio):
+        os.makedirs(diretorio)
+        print(f'Diretório: {diretorio} criado com sucesso!!!')
 
         # Cria as duas subpastas padrão
-        subpasta1 = os.path.join(imovel, 'Fotos')
-        subpasta2 = os.path.join(imovel, 'Video')
+        subpasta1 = os.path.join(diretorio, 'FOTO')
+        subpasta2 = os.path.join(diretorio, 'VIDEO')
 
         os.makedirs(subpasta1)
         os.makedirs(subpasta2)
 
-        # Cria as pastas dentro de Subpasta1 com base no array fornecido
-        for nome in fotos_ambientes:
-            pasta_i = os.path.join(subpasta1, nome)
-            os.makedirs(pasta_i)
-            print(f'Pasta {pasta_i} criada com sucesso.')
+        print(f'Subpastas {subpasta1} e {subpasta2} criadas com sucesso.')
 
-        print(f'Subpastas {subpasta1}, {subpasta2} e pastas dentro de Subpasta1 criadas com sucesso.')
+        for x in range(0,y):
+            pasta_x = os.path.join(subpasta1, f'{pasta2[x]}')
+            os.makedirs(pasta_x)
+            print(f'{pasta_x[x]} criada com sucesso!!!')
 
     else:
-        print(f'O diretório {imovel} já existe.')
+        print(f'O diretório {diretorio} já existe.')
 
 # Especifica o diretório desejado
-diretorio_destino = r'/home/rafaelcalacio/Documentos/Teste/' + imovel
+diretorio_destino = r'/home/rafaelcalacio/Documentos/Teste' + f'/{pasta}'
 
-
-# Chama a função para criar as pastas, pastas dentro de Subpasta1 e o arquivo .docx
-criar_pastas(diretorio_destino, ambiente)
+# Chama a função para criar as pastas
+cria_pasta(diretorio_destino)
