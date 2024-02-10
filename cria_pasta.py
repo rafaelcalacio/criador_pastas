@@ -1,4 +1,5 @@
 import os
+from docx import Document
 
 ## Solicita ao usuário para inserir o nome da pasta
 pasta = input(f'Digite o nome da pasta \n')
@@ -22,6 +23,9 @@ def cria_pasta(diretorio):
 
         print(f'Subpastas {subpasta1} e {subpasta2} criadas com sucesso.')
 
+         # Cria um arquivo .docx no diretório principal
+        criar_arquivo_docx(diretorio) 
+
         for x in range(0,y):
             pasta_x = os.path.join(subpasta1, f'{pasta2[x]}')
             os.makedirs(pasta_x)
@@ -30,8 +34,20 @@ def cria_pasta(diretorio):
     else:
         print(f'O diretório {diretorio} já existe.')
 
+def criar_arquivo_docx(diretorio):
+    doc = Document()
+    doc.add_heading(f'{pasta}', level=1)
+    doc.add_paragraph('Descritivo:')
+    
+    # Caminho completo para o arquivo .docx
+    caminho_arquivo_docx = os.path.join(diretorio, f'DESCRITIVO {pasta}.docx')
+    
+    doc.save(caminho_arquivo_docx)
+    
+    print(f'Arquivo {caminho_arquivo_docx} criado com sucesso.')
+
 # Especifica o diretório desejado
-diretorio_destino = r'/home/rafaelcalacio/Documentos/Teste' + f'/{pasta}'
+diretorio_destino = r'C:\Users\Elenita\OneDrive\Pictures' + f'/{pasta}'
 
 # Chama a função para criar as pastas
 cria_pasta(diretorio_destino)
